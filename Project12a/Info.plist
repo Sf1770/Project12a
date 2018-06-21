@@ -38,8 +38,6 @@
 	<string>Will you give me access to your camera to take photos?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Selfie Share would like to access your photos?</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Selfie Share would like to add to your photo library?</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

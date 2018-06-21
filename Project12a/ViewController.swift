@@ -118,6 +118,8 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     
     @objc func addNewPerson(){
         let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
         let alert = UIAlertController(title: "Import From...", message: nil, preferredStyle: .actionSheet)
         
         let libButton = UIAlertAction(title: "Select photo from Library", style: .default) { (alert) -> Void in
@@ -125,12 +127,14 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
             self.present(picker, animated: true, completion: nil)
         }
     if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+        print("Camera is available")
         let cameraButton = UIAlertAction(title: "Take a picture", style: .default) {
                 (alert) -> Void in
             print("Take photo")
+            //Take a picture to add
             picker.sourceType = UIImagePickerControllerSourceType.camera
             picker.cameraCaptureMode = .photo
-            picker.allowsEditing = false
+            picker.allowsEditing = true
             picker.modalPresentationStyle = .fullScreen
             self.present(picker, animated: true, completion: nil)
             
@@ -138,6 +142,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         alert.addAction(cameraButton)
         
     } else{
+        //if the camera isn't available 
         print("Camera Not Available")
     }
         let cancelButton = UIAlertAction(title: "Cancel", style: .cancel) {
@@ -147,13 +152,12 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         
         alert.addAction(libButton)
         alert.addAction(cancelButton)
+        if let popOverController = alert.popoverPresentationController{
+            popOverController.barButtonItem = self.navigationItem.leftBarButtonItem
+        }
         self.present(alert, animated: true, completion: nil)
         
         
-        picker.allowsEditing = true
-        picker.delegate = self
-        alert.popoverPresentationController?.sourceView = self.view
-        present(picker,animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
